@@ -9,8 +9,8 @@ import blackjack.deck.Deck;
 public class Person {
 
 	protected LinkedList<String> hand = new LinkedList<String>();
-	private HashMap<String, Integer> valueReference = new HashMap<String, Integer>();
-	private int total = 0;
+	protected HashMap<String, Integer> valueReference = new HashMap<String, Integer>();
+	protected int total = 0;
 	
 	public void hit(Deck deck) {
 		hand.add(deck.deck.pollFirst());
@@ -60,14 +60,11 @@ public class Person {
 	}
 	
 	public int getTotal() {
-		System.out.println(" " + total);
 		return total;
 	}
 	
-	public void bust() {
-		getTotal();
-		if (getTotal() > 21) {
-			System.out.println("BUST");
-		} else {}
+	public Boolean bust(int pTotal) {
+		boolean bust = pTotal > 21;
+		return bust;
 	}
 }

@@ -14,19 +14,57 @@ public class Dealer extends Person{
 		if (getTotal() < 16) {
 			hit(deck);
 		} else {}
+		
+		total = 0;
 	}
 	
-	public void dealerCheck(Player person) {
-		evaluation();
-		person.evaluation();
-		int playerValue = person.getTotal();
-		int dealerValue = getTotal();
-		boolean checkWin = playerValue > dealerValue;
-		System.out.println(checkWin);
-		if (checkWin == true) {
-			System.out.println("Player wins");
+	public void evCheck(String card) {
+		boolean ace = card.contains("Ace");
+		
+		if (ace == true) {		
+			if ((total + 11) > 21) {
+				total = total + 1;
+			} else {
+				total = total + 11;
+			}
 		} else {
-			System.out.println("Dealer wins");
+		total = total + valueReference.get(card);
+		}
+	}
+	public String dealerCheck(Player person) {
+		String winner = null;
+		evaluation(); int dealerValue = getTotal();
+		person.evaluation(); int playerValue = person.getTotal();
+		
+		if (bust(playerValue) == true) {playerValue = 0;} else {}
+		if (bust(dealerValue) == true) {dealerValue = 0;} else {}
+		
+		System.out.println("PLAYER: " + playerValue);
+		System.out.println("DEALER: " + dealerValue);
+		
+		if (playerValue > dealerValue) {
+			winner = "Player";
+		} else if (dealerValue > playerValue){
+			winner = "Dealer";
+		} else {
+			winner = "No";
+		}
+		
+		return winner;
+	}
+	
+	public void winner(String decision) {
+		if (decision.contains("Player")) {
+			showHand();
+			System.out.println("PLAYER WINS");
+		} else if (decision.contains("Dealer")) {
+			showHand();
+			System.out.println("DEALER WINS");
+		} else if (decision.contains("No")) {
+			showHand();
+			System.out.println("NO WINNER");
+		} else {
+			System.out.println("ERROR");
 		}
 	}
 }

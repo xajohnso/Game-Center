@@ -7,42 +7,49 @@ import blackjack.person.Dealer;
 import blackjack.person.Player;
 
 public class Main {
+	
+	static Deck deck = new Deck();
+	static Player player = new Player();
+	static Dealer dealer = new Dealer();
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		int Dbust = 0;
-		int choice = 0;
-		
-		Deck deck = new Deck();
-		deck.start();
-		
-		Player player00 = new Player();
-		Dealer dealer = new Dealer();
-		
-		dealer.hit(deck); dealer.hit(deck); player00.hit(deck); player00.hit(deck);
-		dealer.showHand(); 
 		
 		Scanner sn = new Scanner(System.in);
 		
+		Start(deck, player, dealer);
+		Play(deck, player, dealer, sn);
+		
+		sn.close();
+		
+		
+	}
+	
+	public static void Start(Deck deck, Player player, Dealer dealer) {
+		deck.start();
+		
+		dealer.hit(deck); dealer.hit(deck);
+		player.hit(deck); player.hit(deck);
+		
+		dealer.showHand();
+	}
+	
+	public static void Play(Deck deck, Player player, Dealer dealer, Scanner scanner) {
+		int dBust = 0;
 		do {
-			System.out.println("1) Hit or 2) Stand");
-			player00.showHand();
-			choice = sn.nextInt();
+			System.out.println("\n1) Hit or 2) Stand");
+			player.showHand();
+			int choice = scanner.nextInt();
 			switch(choice) {
 			case 1: 
-				player00.hit(deck);
-				player00.bust();
+				player.hit(deck);
 			break;
 			case 2:
 				dealer.play(deck);
-				dealer.bust();
-				dealer.dealerCheck(player00);
-				Dbust++;
+				dealer.winner(dealer.dealerCheck(player));
+				dBust++;
 			break;
-			}
-			
-		} while(Dbust < 1);
-		
+			}	
+		} while(dBust < 1);
 	}
 	
 }

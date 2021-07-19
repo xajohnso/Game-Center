@@ -16,6 +16,7 @@ public class Main {
 		
 		Scanner sn = new Scanner(System.in);
 		
+		deck.start();
 		Start(deck, player, dealer);
 		Play(deck, player, dealer, sn);
 		
@@ -25,7 +26,6 @@ public class Main {
 	}
 	
 	public static void Start(Deck deck, Player player, Dealer dealer) {
-		deck.start();
 		
 		dealer.hit(deck); dealer.hit(deck);
 		player.hit(deck); player.hit(deck);
@@ -38,15 +38,24 @@ public class Main {
 		do {
 			System.out.println("\n1) Hit or 2) Stand");
 			player.showHand();
-			int choice = scanner.nextInt();
-			switch(choice) {
+			switch(scanner.nextInt()) {
 			case 1: 
 				player.hit(deck);
 			break;
 			case 2:
 				dealer.play(deck);
 				dealer.winner(dealer.dealerCheck(player));
-				dBust++;
+				
+				System.out.println("Another round? 1) Yes 2) No");
+				switch(scanner.nextInt()) {
+				case 1: 
+					player.clearHand(); dealer.clearHand();
+					Start(deck, player, dealer);
+				break;
+				case 2:
+					dBust++;
+				break;
+				}
 			break;
 			}	
 		} while(dBust < 1);

@@ -67,4 +67,8 @@ public class Person {
 		boolean bust = pTotal > 21;
 		return bust;
 	}
+	
+	public void clearHand() {
+		hand.removeAll(hand); total = 0;
+	}
 }

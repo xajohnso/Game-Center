@@ -1,12 +1,22 @@
 package blackjack.person;
 
+import java.util.ArrayList;
+
 import blackjack.deck.Deck;
+
+
 
 public class Dealer extends Person{
 
+	private ArrayList<String> dHand = new ArrayList<String>();
+	
 	public void showHand() {
-		System.out.println("::DEALER HAND::");
-		hand.forEach((k) -> System.out.print(":: " + k + " "));
+		hand.forEach((k) -> dHand.add(k));
+		System.out.println(" ::DEALER HAND::");
+		for (int x = 1; x < dHand.size(); x++) {
+			System.out.print(" :: " + dHand.get(x));
+		}
+		
 	}
 	
 	public void play(Deck deck) {
@@ -55,16 +65,25 @@ public class Dealer extends Person{
 	
 	public void winner(String decision) {
 		if (decision.contains("Player")) {
-			showHand();
-			System.out.println("PLAYER WINS");
+			System.out.println(" ::DEALER HAND::");
+			hand.forEach((k) -> System.out.print(" :: " + k));
+			System.out.println(" PLAYER WINS");
 		} else if (decision.contains("Dealer")) {
-			showHand();
-			System.out.println("DEALER WINS");
+			System.out.println(" ::DEALER HAND::");
+			hand.forEach((k) -> System.out.print(" :: " + k));
+			System.out.println(" DEALER WINS");
 		} else if (decision.contains("No")) {
-			showHand();
-			System.out.println("NO WINNER");
+			System.out.println(" ::DEALER HAND::");
+			hand.forEach((k) -> System.out.print(" :: " + k));
+			System.out.println(" NO WINNER");
 		} else {
-			System.out.println("ERROR");
+			System.out.println(" ERROR");
 		}
+	}
+	
+	public void clearHand() {
+		hand.removeAll(hand); 
+		dHand.removeAll(dHand);
+		total = 0;
 	}
 }

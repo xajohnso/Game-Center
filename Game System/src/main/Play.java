@@ -17,6 +17,14 @@ public class Play {
 			case 1:
 				blackjack.main.Main.main(args);
 			break;
+			
+			case 6:
+				speedArithmetic.main.Main.main(args);
+			break;
+			
+			case 7:
+				upBelow.main.Main.main(args);
+			break;
 			}
 		break;
 		

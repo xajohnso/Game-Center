@@ -41,7 +41,7 @@ public class Deck {
 			System.out.println(deck.get(z));
 		}
 	}
-	
+
 	public void start() {
 		makeDeck();
 		shuffleDeck();
@@ -53,6 +53,7 @@ public class Deck {
 		cardTwo = deck.pollFirst(); 
 	}
 	
+	//Reference to help evaluate the numerical value of each card
 	public void reference() {
 		valueReference.put("Ace", 1);
 		valueReference.put("Two", 2);
@@ -69,17 +70,20 @@ public class Deck {
 		valueReference.put("King", 13);
 	} 
 	
+	
 	public int score() {
 		int score = 52 - deck.size();
 		return score;
 	}
 	
 	public void evalEasy(String choice) {
+		//Numerical value of a card is placed into an int variable 
 		c1N = valueReference.get(cardOne.substring(4));
 		c2N = valueReference.get(cardTwo.substring(4));
 		
 		boolean ch1 = c1N > c2N;
 		
+		//After a choice (will next card value be higher or lower than current card?) there is a check between the values of two cards
 		switch(choice){
 		case "up":
 			if (ch1 == true) {

@@ -35,6 +35,7 @@ public class Main {
 		deck.nextRound();
 	}
 	
+	//Creates the problem. Timer is set for 5 seconds; if individual answers before then the timer is stopped
 	public static void problem(Scanner scanner) {
 		System.out.println(deck.cardOneNum + operation + deck.cardTwoNum + " =");
 		Timer timer = new Timer();
@@ -56,6 +57,7 @@ public class Main {
 		
 	}
 	
+	//Randomizes the operation used for each problem
 	public static void firstProblem() {
 	int ranNum = (int) (Math.random() * 3);
 		switch (ranNum) {
@@ -74,6 +76,7 @@ public class Main {
 		}
 	}
 	
+	//Similar to first problem. (ie. a + b = c - > c + d = e :: c is used in the new problem set)
 	public static void secondProblem(Scanner scanner) {
 		firstProblem();
 		System.out.println(firstAnswer  + operation + deck.cardThree());

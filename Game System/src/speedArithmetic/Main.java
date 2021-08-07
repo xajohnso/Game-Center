@@ -1,4 +1,4 @@
-package speedArithmetic.main;
+package speedArithmetic;
 
 import java.util.Scanner;
 import java.util.Timer;
@@ -19,8 +19,8 @@ public class Main {
 	
 		startGame();
 		do {
-		firstProblem();
-		problem(sc);
+		operation();
+		problem(sc, firstAnswer, deck.cardOneNum, deck.cardTwoNum);
 		deck.nextRound();
 		
 		} while(counter == 0);
@@ -36,8 +36,8 @@ public class Main {
 	}
 	
 	//Creates the problem. Timer is set for 5 seconds; if individual answers before then the timer is stopped
-	public static void problem(Scanner scanner) {
-		System.out.println(deck.cardOneNum + operation + deck.cardTwoNum + " =");
+	public static void problem(Scanner scanner, int answer, int a, int b) {
+		System.out.println(a + operation + b + " =");
 		Timer timer = new Timer();
 		
 		TimerTask task = new TimerTask() {
@@ -51,14 +51,19 @@ public class Main {
 		};
 		
 		timer.schedule(task, 5000);
-		firstAnswer = scanner.nextInt();
+		answer = scanner.nextInt();
 		timer.cancel();
-		problemCheck(scanner);
+		
+		if (deck.cardThree == null) {
+		problemCheck(scanner, answer);
+		} else {
+			problemCheck2();
+		}
 		
 	}
 	
 	//Randomizes the operation used for each problem
-	public static void firstProblem() {
+	public static void operation() {
 	int ranNum = (int) (Math.random() * 3);
 		switch (ranNum) {
 		case 0:
@@ -76,34 +81,12 @@ public class Main {
 		}
 	}
 	
-	//Similar to first problem. (ie. a + b = c - > c + d = e :: c is used in the new problem set)
-	public static void secondProblem(Scanner scanner) {
-		firstProblem();
-		System.out.println(firstAnswer  + operation + deck.cardThree());
-		Timer timer = new Timer();
-		
-		TimerTask task = new TimerTask() {
-			public void run() {
-				if (tt == null) {
-				System.out.println("TIME!!" + deck.score()); counter++;
-				} else {
-					
-				}
-			}
-		};
-		
-		timer.schedule(task, 5000);
-		secondAnswer = scanner.nextInt();
-		timer.cancel();
-		problemCheck2();
-	}
-	
-	public static void problemCheck(Scanner sc) {
+	public static void problemCheck(Scanner sc, int answer) {
 		switch(operation) {
 		case " + ":
-			boolean addCheck = firstAnswer == deck.cardTwoNum + deck.cardOneNum;
+			boolean addCheck = answer == deck.cardTwoNum + deck.cardOneNum;
 			if (addCheck == true) {
-				secondProblem(sc);
+				problem(sc, secondAnswer, answer, deck.cardThree());
 			} else {
 				System.out.println("Incorrect! Score: " + deck.score());
 				counter++;
@@ -111,9 +94,9 @@ public class Main {
 		break;
 		
 		case " - ":
-			boolean subtractCheck = firstAnswer == deck.cardOneNum - deck.cardTwoNum;
+			boolean subtractCheck = answer == deck.cardOneNum - deck.cardTwoNum;
 			if (subtractCheck == true) {
-				secondProblem(sc);
+				problem(sc, secondAnswer, answer, deck.cardThree());
 			} else {
 				System.out.println("Incorrect! Score: " + deck.score());
 				counter++;
@@ -121,9 +104,9 @@ public class Main {
 		break;
 		
 		case " * ":
-			boolean multiplicationCheck = firstAnswer == deck.cardOneNum * deck.cardTwoNum;
+			boolean multiplicationCheck = answer == deck.cardOneNum * deck.cardTwoNum;
 			if (multiplicationCheck == true) {
-				secondProblem(sc);
+				problem(sc, secondAnswer, answer, deck.cardThree());
 			} else {
 				System.out.println("Incorrect! Score: " + deck.score());			
 				counter++;
@@ -137,7 +120,7 @@ public class Main {
 		case " + ":
 			boolean addCheck = secondAnswer == firstAnswer + deck.cardThreeNum;
 			if (addCheck == true) {
-				
+				deck.cardThree = null;
 			} else {
 				System.out.println("Incorrect! Score: " + deck.score());			
 				counter++;
@@ -147,7 +130,7 @@ public class Main {
 		case " - ":
 			boolean subtractCheck = secondAnswer == firstAnswer - deck.cardThreeNum;
 			if (subtractCheck == true) {
-				
+				deck.cardThree = null;
 			} else {
 				System.out.println("Incorrect! Score: " + deck.score());
 				counter++;
@@ -157,7 +140,7 @@ public class Main {
 		case " * ":
 			boolean multiplicationCheck = secondAnswer == firstAnswer * deck.cardThreeNum;
 			if (multiplicationCheck == true) {
-				
+				deck.cardThree = null;
 			} else {
 				System.out.println("Incorrect! Score: " + deck.score());			
 				counter++;
@@ -167,3 +150,4 @@ public class Main {
 	}
 
 }
+

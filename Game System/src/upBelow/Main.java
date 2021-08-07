@@ -1,4 +1,4 @@
-package upBelow.main;
+package upBelow;
 
 import java.util.Scanner;
 
@@ -23,7 +23,7 @@ public class Main {
 		break;
 		
 		case 2:
-			hardMode();
+			hardMode(scanner);
 		break;
 		
 		default:
@@ -54,7 +54,26 @@ public class Main {
 		} while(deck.counter == 0);
 	}
 	
-	public static void hardMode() {
+	public static void hardMode(Scanner scanner) {
+		deck.getCards();
+		
+		do {
+		System.out.println("Score: " + deck.score() + " Cards left: " + deck.deck.size());
+		System.out.println("Current card: " + deck.cardOne);
+		System.out.println("1) Up 2) Below");
+		switch(scanner.nextInt()) {
+		case 1:
+			deck.evalHard("up");
+		break;
+		
+		case 2:
+			deck.evalHard("below");
+		break;
+		
+		default:
+		break;
+		}
+		} while(deck.counter == 0);
 		
 	}
 

@@ -7,8 +7,8 @@ import java.util.TimerTask;
 public class Main {
 
 	static Deck deck = new Deck();
-	static int firstAnswer = 0;
-	static int secondAnswer = 0;
+	static int firstAnswer;
+	static int secondAnswer;
 	static int counter = 0;
 	static String tt = null;
 	static String operation = null;
@@ -54,12 +54,32 @@ public class Main {
 		answer = scanner.nextInt();
 		timer.cancel();
 		
-		if (deck.cardThree == null) {
+		 
 		problemCheck(scanner, answer);
-		} else {
-			problemCheck2();
-		}
+	}
+	
+	public static void problemTwo(Scanner scanner, int answer, int a, int b) {
+		operation();
+		System.out.println(a + operation + b + " =");
+		Timer timer = new Timer();
 		
+		TimerTask task = new TimerTask() {
+			public void run() {
+				if (tt == null) {
+				System.out.println("TIME!!" + deck.score()); counter++;
+				} else {
+					
+				}
+			}
+		};
+		
+		timer.schedule(task, 5000);
+		answer = scanner.nextInt();
+		timer.cancel();
+		int newA = a;
+		int newB = b;
+		 
+		problemCheck2(answer, newA, newB);
 	}
 	
 	//Randomizes the operation used for each problem
@@ -86,7 +106,8 @@ public class Main {
 		case " + ":
 			boolean addCheck = answer == deck.cardTwoNum + deck.cardOneNum;
 			if (addCheck == true) {
-				problem(sc, secondAnswer, answer, deck.cardThree());
+				deck.cardThree();
+				problemTwo(sc, secondAnswer, answer, deck.cardThreeNum);
 			} else {
 				System.out.println("Incorrect! Score: " + deck.score());
 				counter++;
@@ -96,7 +117,8 @@ public class Main {
 		case " - ":
 			boolean subtractCheck = answer == deck.cardOneNum - deck.cardTwoNum;
 			if (subtractCheck == true) {
-				problem(sc, secondAnswer, answer, deck.cardThree());
+				deck.cardThree();
+				problemTwo(sc, secondAnswer, answer, deck.cardThreeNum);
 			} else {
 				System.out.println("Incorrect! Score: " + deck.score());
 				counter++;
@@ -106,7 +128,8 @@ public class Main {
 		case " * ":
 			boolean multiplicationCheck = answer == deck.cardOneNum * deck.cardTwoNum;
 			if (multiplicationCheck == true) {
-				problem(sc, secondAnswer, answer, deck.cardThree());
+				deck.cardThree();
+				problemTwo(sc, secondAnswer, answer, deck.cardThreeNum);
 			} else {
 				System.out.println("Incorrect! Score: " + deck.score());			
 				counter++;
@@ -115,34 +138,34 @@ public class Main {
 		}
 	}
 	
-	public static void problemCheck2() {
+	public static void problemCheck2(int answer, int a, int b) {
 		switch(operation) {
 		case " + ":
-			boolean addCheck = secondAnswer == firstAnswer + deck.cardThreeNum;
+			boolean addCheck = answer == a + b;
 			if (addCheck == true) {
-				deck.cardThree = null;
+				
 			} else {
-				System.out.println("Incorrect! Score: " + deck.score());			
+				System.out.println("Incorrect! Answer: " + (a + b) + " Score: " + deck.score());			
 				counter++;
 			}
 		break;
 		
 		case " - ":
-			boolean subtractCheck = secondAnswer == firstAnswer - deck.cardThreeNum;
+			boolean subtractCheck = answer == a - b;
 			if (subtractCheck == true) {
-				deck.cardThree = null;
+				
 			} else {
-				System.out.println("Incorrect! Score: " + deck.score());
+				System.out.println("Incorrect! Answer: " + (a - b) + " Score: " + deck.score());
 				counter++;
 			}
 		break;
 		
 		case " * ":
-			boolean multiplicationCheck = secondAnswer == firstAnswer * deck.cardThreeNum;
+			boolean multiplicationCheck = answer == a * b;
 			if (multiplicationCheck == true) {
-				deck.cardThree = null;
+				
 			} else {
-				System.out.println("Incorrect! Score: " + deck.score());			
+				System.out.println("Incorrect! Answer: " + (a * b) + " Score: " + deck.score());			
 				counter++;
 			}
 		break;
@@ -150,4 +173,3 @@ public class Main {
 	}
 
 }
-

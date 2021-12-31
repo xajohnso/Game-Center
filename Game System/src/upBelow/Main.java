@@ -60,6 +60,7 @@ public class Main {
 		do {
 		System.out.println("Score: " + deck.score() + " Cards left: " + deck.deck.size());
 		System.out.println("Current card: " + deck.cardOne);
+		System.out.println("Suit Rankings: H (Heart) - 1, C (Club) - 2, D (Diamond) - 3, S (Spade) - 4");
 		System.out.println("1) Up 2) Below");
 		switch(scanner.nextInt()) {
 		case 1:

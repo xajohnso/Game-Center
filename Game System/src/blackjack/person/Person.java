@@ -1,22 +1,64 @@
-package blackjack.person;
+package blackjack;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Scanner;
-
-import blackjack.deck.Deck;
 
 public class Person {
 
 	protected LinkedList<String> hand = new LinkedList<String>();
 	protected HashMap<String, Integer> valueReference = new HashMap<String, Integer>();
 	protected int total = 0;
+	protected int moneyOwned = 0;
+	protected int moneyBetted = 0;
 	
 	public void hit(Deck deck) {
 		hand.add(deck.deck.pollFirst());
 	}
 	
+	public void winner(int who) {
+		
+		switch (who) {
+		case 1: 
+			addMoney(moneyBetted * 2);
+		break;
+		
+		case 2:
+
+		break;
+		
+		default:
+			addMoney(moneyBetted);
+		break;
+		}
+	}
+	
+	public void addMoney(int amount) {
+		moneyOwned = moneyOwned + amount;
+	}
+	
+	public void takeMoney(int amount) {
+		moneyOwned = moneyOwned - amount;
+	}
+	
+	public int showMoney() {
+		return moneyOwned;
+	}
+	
+	public void increaseBet(int amount) {
+		moneyBetted = moneyBetted + amount;
+	}
+	
+	public int showBet() {
+		return moneyBetted;
+	}
+	
+	public void resetBet() {
+		moneyBetted = 0;
+	}
+	
 	public void showHand() {
+		System.out.println("\n:: PLAYER HAND ::");
 		hand.forEach((k) -> System.out.print(" :: " + k));
 	}
 	
@@ -53,7 +95,7 @@ public class Person {
 			
 			case 2: total = total + 11; break;
 			}
-			sn.close();
+			
 		} else {
 		total = total + valueReference.get(card);
 		}

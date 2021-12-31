@@ -15,20 +15,29 @@ public class Play {
 			System.out.println("1) Blackjack 2) BS 3) Speed 4) Uno 5) Set Memorization 6) Speed Arithmetic 7) Up Below");
 			switch(scanner.nextInt()) {
 			case 1:
-				blackjack.main.Main.main(args);
+				blackjack.Main.main(args);
+			break;
+			
+			case 2:
+				bs.Main.main(args);
+			break;
+			
+			case 5:
+				setMemorization.SMMain.main(args);
 			break;
 			
 			case 6:
-				speedArithmetic.main.Main.main(args);
+				speedArithmetic.Main.main(args);
 			break;
 			
 			case 7:
-				upBelow.main.Main.main(args);
+				upBelow.Main.main(args);
 			break;
 			}
 		break;
 		
 		case 2:
+			dominoes.DominoesMain.main(args);
 		break;
 		
 		case 3:

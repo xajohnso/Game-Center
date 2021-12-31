@@ -82,7 +82,7 @@ public class Deck {
 	
 	
 	public int score() {
-		int score = 52 - deck.size();
+		int score = 50 - deck.size();
 		return score;
 	}
 	
@@ -98,7 +98,7 @@ public class Deck {
 		case "up":
 			if (ch1 == true) {
 				counter++;
-				System.out.println("Incorrect! Score: " + score());
+				System.out.println("Incorrect! \nYour card: " + cardOne + " \nCard pulled: " + cardTwo + " \nScore: " + score());
 			} else {
 				cardOne = cardTwo; cardTwo = deck.pollFirst();
 			}
@@ -109,7 +109,7 @@ public class Deck {
 				cardOne = cardTwo; cardTwo = deck.pollFirst();
 			} else {
 				counter++;
-				System.out.println("Incorrect! Score: " + score());
+				System.out.println("Incorrect! \nYour card: " + cardOne + " \nCard pulled: " + cardTwo + " \nScore: " + score());
 			}
 		break;
 		}
@@ -133,7 +133,7 @@ public class Deck {
 			} else if (sc2 == true){
 				if (nc1 == true) {
 					counter++;
-					System.out.println("Incorrec! Score: " + score());
+					System.out.println("Incorrect! Score: " + score());
 					System.out.println("Card one: " + cardOne + " Card two: " + cardTwo);
 				} else {
 					cardOne = cardTwo; cardTwo = deck.pollFirst();
@@ -161,66 +161,5 @@ public class Deck {
 			}
 		break;
 		}
-	}
-}
-		reference();
-	}
-	
-	public void getCards() {
-		cardOne = deck.pollFirst();
-		cardTwo = deck.pollFirst(); 
-	}
-	
-	//Reference to help evaluate the numerical value of each card
-	public void reference() {
-		valueReference.put("Ace", 1);
-		valueReference.put("Two", 2);
-		valueReference.put("Three", 3);
-		valueReference.put("Four", 4);
-		valueReference.put("Five", 5);
-		valueReference.put("Six", 6);
-		valueReference.put("Seven", 7);
-		valueReference.put("Eight", 8);
-		valueReference.put("Nine", 9);
-		valueReference.put("Ten", 10);
-		valueReference.put("Jack", 11);
-		valueReference.put("Queen", 12);
-		valueReference.put("King", 13);
-	} 
-	
-	
-	public int score() {
-		int score = 52 - deck.size();
-		return score;
-	}
-	
-	public void evalEasy(String choice) {
-		//Numerical value of a card is placed into an int variable 
-		c1N = valueReference.get(cardOne.substring(4));
-		c2N = valueReference.get(cardTwo.substring(4));
-		
-		boolean ch1 = c1N > c2N;
-		
-		//After a choice (will next card value be higher or lower than current card?) there is a check between the values of two cards
-		switch(choice){
-		case "up":
-			if (ch1 == true) {
-				counter++;
-				System.out.println("Incorrect! Score: " + score());
-			} else {
-				cardOne = cardTwo; cardTwo = deck.pollFirst();
-			}
-		break;
-		
-		case "below":
-			if (ch1 == true) {
-				cardOne = cardTwo; cardTwo = deck.pollFirst();
-			} else {
-				counter++;
-				System.out.println("Incorrect! Score: " + score());
-			}
-		break;
-		}
-		
 	}
 }

@@ -1,8 +1,6 @@
-package blackjack.person;
+package blackjack;
 
 import java.util.ArrayList;
-
-import blackjack.deck.Deck;
 
 
 
@@ -63,22 +61,28 @@ public class Dealer extends Person{
 		return winner;
 	}
 	
-	public void winner(String decision) {
+	public int winner(String decision) {
+		int choice = 0;
 		if (decision.contains("Player")) {
 			System.out.println(" ::DEALER HAND::");
 			hand.forEach((k) -> System.out.print(" :: " + k));
-			System.out.println(" PLAYER WINS");
+			System.out.println("\nPLAYER WINS");
+			choice = 1;
 		} else if (decision.contains("Dealer")) {
 			System.out.println(" ::DEALER HAND::");
 			hand.forEach((k) -> System.out.print(" :: " + k));
-			System.out.println(" DEALER WINS");
+			System.out.println("\nDEALER WINS");
+			
+			choice = 2;
 		} else if (decision.contains("No")) {
 			System.out.println(" ::DEALER HAND::");
 			hand.forEach((k) -> System.out.print(" :: " + k));
-			System.out.println(" NO WINNER");
+			System.out.println("\nNO WINNER");
 		} else {
 			System.out.println(" ERROR");
 		}
+		
+		return choice;
 	}
 	
 	public void clearHand() {
